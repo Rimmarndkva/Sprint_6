@@ -1,9 +1,8 @@
 import allure
-
+from selenium.webdriver.common.keys import Keys
 from helpers import generate_date_rent
 from locators.page_order_locators import OrderPageLocators
 from pages.page_baze import BasePage
-
 
 class OrderPage(BasePage):
 
@@ -30,28 +29,31 @@ class OrderPage(BasePage):
     def fill_in_input_phone(self, phone):
         return self.add_text_to_element(OrderPageLocators.input_phone, phone)
 
-    @allure.step('Заполняем Форму Для кого самокат')
+    @allure.step('Заполняем Форму "Для кого самокат"')
     def fill_form_about_info_client(self, name, last_name, address, metro, phone):
-        self.fill_in_input_name(name)
-        self.fill_in_input_last_name(last_name)
-        self.fill_in_input_address(address)
+        self.add_text_to_element(OrderPageLocators.input_name, name) 
+        self.add_text_to_element(OrderPageLocators.input_last_name, last_name) 
+        self.add_text_to_element(OrderPageLocators.input_address, address) 
         self.select_metro_station(metro) 
-        self.fill_in_input_phone(phone)
-        self.click_to_element(OrderPageLocators.button_next)
+        self.add_text_to_element(OrderPageLocators.input_phone, phone) 
+        self.click_to_element(OrderPageLocators.button_next) 
 
-    @allure.step('Заполняем поле Когда привезти самокат')
+    @allure.step('Заполняем поле "Когда привезти самокат"')
     def fill_in_input_date_rent(self):
-        rent_date = generate_date_rent()
+        rent_date = generate_date_rent() 
+
         self.add_text_to_element(OrderPageLocators.input_date_rent, rent_date)
-        from selenium.webdriver.common.keys import Keys
-        self.driver.find_element(*OrderPageLocators.input_date_rent).send_keys(Keys.ENTER)
+    
+        self.add_text_to_element(OrderPageLocators.input_date_rent, Keys.ENTER)
 
-    @allure.step('Заполняем поле Срок аренды')
-    def fill_in_input_count_rent_day(self, rent_day):
-        self.click_to_element(OrderPageLocators.input_count_rent_day)
-        locator_count_rent_day = self.format_locators(OrderPageLocators.list_count_rent_day, rent_day)
-        return self.click_to_element(locator_count_rent_day)
+    @allure.step('Заполняем форму "Про аренду"')
+    def fill_form_about_rent(self, rent_day, colour, comment):
 
+        self.find_element_with_wait(OrderPageLocators.title_order_rent)
+        self.fill_in_input_date_rent()
+        self.fill_in_input_count_rent_day(rent_day)
+        self.fill_in_checkbox_colour(colour)
+        self.fill_in_comment_input(comment)
 
     @allure.step('Выбираем чек-бокс')
     def fill_in_checkbox_colour(self, colour):

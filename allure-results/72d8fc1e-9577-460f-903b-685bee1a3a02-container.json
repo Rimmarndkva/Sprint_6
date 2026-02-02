@@ -1,0 +1,1 @@
+{"uuid": "cfdc57f7-5024-4952-b962-a32d24511e9f", "children": ["56718789-6d8a-42cc-a4a0-bbd4cd4429f8"], "befores": [{"name": "setup", "status": "passed", "steps": [{"name": "Принимаем Куки", "status": "passed", "start": 1770055425285, "stop": 1770055425302}], "start": 1770055423677, "stop": 1770055425302}], "start": 1770055423677, "stop": 1770055425863}
