@@ -33,6 +33,4 @@ class TestOrderPage:
             colour=about_scooter_rent['colour'],
             comment=comment
         )
-        self.order_page.click_button_order_finall()
-        self.order_page.confirmation_order()
         assert 'Заказ оформлен' in self.order_page.check_accept_order()
